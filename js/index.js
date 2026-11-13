@@ -1,22 +1,11 @@
-const title = document.querySelector('.title')
-const text = `Is this day special?`.split('')
+const title = document.querySelector('.title');
+const text = Array.from('Is this day special?');
 
-// Create container for better responsive layout
-title.style.display = 'flex'
-title.style.flexWrap = 'wrap'
-title.style.justifyContent = 'center'
-title.style.gap = '0.5rem'
+// Tạo toàn bộ span một lần rồi gán vào DOM (layout flex đã có trong css/index.css)
+title.innerHTML = text
+  .map((char) => (char === ' ' ? `<span style="width: 1rem"></span>` : `<span>${char}</span>`))
+  .join('');
 
-for (let index = 0; index < text.length; index++) {
-  if (text[index] !== ' ') {
-    title.innerHTML += `<span>${text[index]}</span>`
-  } else {
-    title.innerHTML += `<span style='width: 1rem'></span>`
-  }
-}
-
-const textElements = document.querySelectorAll('.title span');
-textElements.forEach((element) => {
-  const randomDelay = Math.random() * 3;
-  element.style.animationDelay = `${randomDelay}s`;
+title.querySelectorAll('span').forEach((element) => {
+  element.style.animationDelay = `${Math.random() * 3}s`;
 });
